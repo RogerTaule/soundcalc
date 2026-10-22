@@ -17,14 +17,16 @@ def test_get_STIR_proof_size_bits():
     num_ood_samples = [2]
 
     expected = 0
-    # roots of f_0 and f_1
-    expected += 2 * hash_size_bits
+    # roots of the batched functions, f_0 and f_1
+    expected += 3 * hash_size_bits
     # OOD answers for f_1
     expected += 2 * ext_field_bits
     # final polynomial: 2^1 coefficients
     expected += 2 * ext_field_bits
-    # queries into f_0: 16 leaves of 2*3 base elements; path = leaf + sibling + 3 hashes
-    expected += num_queries[0] * (6 * base_field_bits + min(6 * base_field_bits, hash_size_bits) + 3 * hash_size_bits)
+    # queries into the batched functions: 32 leaves of 3 base elements; path = leaf + sibling + 4 hashes
+    expected += num_queries[0] * (3 * base_field_bits + min(3 * base_field_bits, hash_size_bits) + 4 * hash_size_bits)
+    # queries into f_0: 16 leaves of 2 ext elements; path = leaf + sibling + 3 hashes
+    expected += num_queries[0] * (2 * ext_field_bits + min(2 * ext_field_bits, hash_size_bits) + 3 * hash_size_bits)
     # queries into f_1: 4 leaves of 4 ext elements; path = leaf + sibling + 1 hash
     expected += num_queries[1] * (4 * ext_field_bits + min(4 * ext_field_bits, hash_size_bits) + 1 * hash_size_bits)
 

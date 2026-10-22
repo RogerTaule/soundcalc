@@ -36,6 +36,9 @@ def get_STIR_proof_size_bits(
     - `log_inv_rates` has length M+1 and gives the log inverse rate of each code.
     - `num_queries` has length M: t_i queries into f_i for i = 0..M-1.
     - `num_ood_samples` has length M-1: s_i out-of-domain samples for f_i, i = 1..M-1.
+
+    As in FRI, the batched f_0 is committed in its own tree, and the batched functions
+    are opened at a single point per query.
     """
     num_iterations = len(num_queries)
     assert len(folding_factors) == num_iterations
@@ -45,9 +48,9 @@ def get_STIR_proof_size_bits(
 
     proof_size = 0
 
-    # Prover sends the initial function f_0 (Merkle root).
+    # Prover sends the batched functions and the initial function f_0 (Merkle roots).
     # Note: batching does not add roots, we assume all batched functions live in one tree.
-    proof_size += hash_size_bits
+    proof_size += 2 * hash_size_bits
 
     # Main loop, i = 1..M-1: prover sends f_i (Merkle root) and the OOD answers f_i(r_out).
     # OOD points are extension field elements, hence so are the answers.
@@ -58,24 +61,23 @@ def get_STIR_proof_size_bits(
     # Final round: prover sends the polynomial p of degree < 2^{m_M} in the clear.
     proof_size += (2 ** log_degrees[-1]) * ext_field_bits
 
-    # Query phase: for every f_i (i = 0..M-1) the verifier reads t_i folding blocks.
+    # Query phase: the verifier reads the batched (base field) functions at t_0 points.
+    batched_domain_size = 2 ** (log_degrees[0] + log_inv_rates[0])
+    proof_size += get_size_of_merkle_multi_proof_bits(
+        batched_domain_size, num_queries[0], batch_size, base_field_bits, hash_size_bits, expected
+    )
+
+    # Then, for every f_i (i = 0..M-1) the verifier reads t_i folding blocks.
     # As in the paper, an entire block of 2^{k_i} siblings is stored in one Merkle leaf.
     for i in range(num_iterations):
         block_size = 2 ** folding_factors[i]
         domain_size = 2 ** (log_degrees[i] + log_inv_rates[i])
         num_leafs = domain_size // block_size
 
-        # f_0 is the (base field) witness; f_i for i > 0 contain the extension field
-        # folding challenges, and so are over the extension field.
-        if i == 0:
-            element_bits = base_field_bits
-            tuple_size = block_size * batch_size
-        else:
-            element_bits = ext_field_bits
-            tuple_size = block_size
-
+        # f_0 contains the extension field batching challenge, and f_i for i > 0 the
+        # extension field folding challenges, so they are all over the extension field.
         proof_size += get_size_of_merkle_multi_proof_bits(
-            num_leafs, num_queries[i], tuple_size, element_bits, hash_size_bits, expected
+            num_leafs, num_queries[i], block_size, ext_field_bits, hash_size_bits, expected
         )
 
     return proof_size
