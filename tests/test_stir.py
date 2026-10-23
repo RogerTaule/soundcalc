@@ -43,6 +43,13 @@ def test_get_STIR_proof_size_bits():
 
     assert result == expected
 
+    # two trees of 2*2 and 2*1 base elements instead of one of 2*3: one more root, smaller leaves
+    widths = get_STIR_proof_size_bits(
+        hash_size_bits, base_field_bits, ext_field_bits, batch_size, folding_factors, log_degrees,
+        log_inv_rates, num_queries, num_ood_samples, False, initial_tree_widths=[2, 1],
+    )
+    assert widths == result - 10 * (6 + 1 + 3) + 1 + 10 * (4 + 1 + 3) + 10 * (2 + 1 + 3)
+
 
 def test_dummy_stir_loads_and_reaches_target():
     zkvm = dummy_stir.load()

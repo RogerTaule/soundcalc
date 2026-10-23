@@ -24,6 +24,7 @@ def get_STIR_proof_size_bits(
     num_queries: list[int],
     num_ood_samples: list[int],
     expected: bool,
+    initial_tree_widths: Optional[list[int]] = None,
 ) -> int:
     """
     Estimate the proof size of STIR in bits by counting prover messages
@@ -47,7 +48,9 @@ def get_STIR_proof_size_bits(
 
     # Prover sends the initial function f_0 (Merkle root).
     # Note: batching does not add roots, we assume all batched functions live in one tree.
-    proof_size += hash_size_bits
+    # With `initial_tree_widths`, there is one root per tree instead.
+    initial_trees = initial_tree_widths or [batch_size]
+    proof_size += len(initial_trees) * hash_size_bits
 
     # Main loop, i = 1..M-1: prover sends f_i (Merkle root) and the OOD answers f_i(r_out).
     # OOD points are extension field elements, hence so are the answers.
@@ -68,15 +71,14 @@ def get_STIR_proof_size_bits(
         # f_0 is the (base field) witness; f_i for i > 0 contain the extension field
         # folding challenges, and so are over the extension field.
         if i == 0:
-            element_bits = base_field_bits
-            tuple_size = block_size * batch_size
+            trees = [(block_size * width, base_field_bits) for width in initial_trees]
         else:
-            element_bits = ext_field_bits
-            tuple_size = block_size
+            trees = [(block_size, ext_field_bits)]
 
-        proof_size += get_size_of_merkle_multi_proof_bits(
-            num_leafs, num_queries[i], tuple_size, element_bits, hash_size_bits, expected
-        )
+        for tuple_size, element_bits in trees:
+            proof_size += get_size_of_merkle_multi_proof_bits(
+                num_leafs, num_queries[i], tuple_size, element_bits, hash_size_bits, expected
+            )
 
     return proof_size
 
@@ -142,6 +144,11 @@ class STIRConfig:
     # Optional override for the bound *gap*.
     gap_to_radius: Optional[float] = None
 
+    # Base field columns of each tree committed before STIR (default: all batched functions in one tree).
+    initial_tree_widths: Optional[list[int]] = None
+    # Out-of-domain evaluations sent in the proof (extension field elements).
+    num_evals: int = 0
+
 
 class STIR(PCS):
     """
@@ -168,6 +175,8 @@ class STIR(PCS):
         self.grinding_bits_ood = config.grinding_bits_ood
         self.gap_to_radius = config.gap_to_radius
         self.log_degree = config.log_degree
+        self.initial_tree_widths = config.initial_tree_widths
+        self.num_evals = config.num_evals
 
         assert self.batch_size >= 1, "Batch size must be at least 1"
         assert config.log_inv_rate > 0, "Log inverse rate must be > 0 (rate < 1.0)"
@@ -362,7 +371,8 @@ class STIR(PCS):
         return round(math.log2(grinding_sum), 2)
 
     def _get_proof_size_bits(self, expected: bool) -> int:
-        return get_STIR_proof_size_bits(
+        evals_size_bits = self.num_evals * self.field.extension_field_element_size_bits()
+        return evals_size_bits + get_STIR_proof_size_bits(
             hash_size_bits=self.hash_size_bits,
             base_field_bits=self.field.base_field_element_size_bits(),
             ext_field_bits=self.field.extension_field_element_size_bits(),
@@ -373,6 +383,7 @@ class STIR(PCS):
             num_queries=self.num_queries,
             num_ood_samples=self.num_ood_samples,
             expected=expected,
+            initial_tree_widths=self.initial_tree_widths,
         )
 
     def get_rate(self) -> float:
