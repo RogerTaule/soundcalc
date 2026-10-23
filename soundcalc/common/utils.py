@@ -67,6 +67,38 @@ def get_size_of_merkle_multi_proof_bits_expected(num_leafs: int, num_openings: i
     return leafs_size + num_hashes * hash_size_bits
 
 
+def get_size_of_merkle_multi_proof_bits_worst_case(num_leafs: int, num_openings: int, tuple_size: int, element_size_bits: int,  hash_size_bits: int) -> int:
+    """
+    Compute the *worst case* size of a Merkle multi-proof in bits.
+
+    We assume a Merkle tree that represents num_leafs leaves.
+
+    Note: the result counts both the leafs and the Merkle path.
+
+    The worst case is reached when the opened leaves are spread out as much as possible.
+    At depth d at most min(2^d, t) nodes lie on an opened path, so for 2^d <= t every node
+    is on a path and no sibling is sent. At the depth where the paths split (2^{d-1} < t < 2^d),
+    2^d - t path nodes have their sibling off the paths, and below it all t of them do.
+    """
+    assert num_leafs > 0
+
+    num_openings = min(num_openings, num_leafs)
+    leaf_size = tuple_size * element_size_bits
+    leafs_size = num_openings * leaf_size
+
+    tree_depth = math.ceil(math.log2(num_leafs))
+
+    siblings_size = 0
+    for d in range(1, tree_depth + 1):
+        if 2**d <= num_openings:
+            continue
+        num_siblings = 2**d - num_openings if 2**(d - 1) < num_openings else num_openings
+        # As in a single Merkle path, a sibling leaf is sent instead of its hash if it is smaller.
+        sibling_size = min(leaf_size, hash_size_bits) if d == tree_depth else hash_size_bits
+        siblings_size += num_siblings * sibling_size
+    return leafs_size + siblings_size
+
+
 def get_size_of_merkle_multi_proof_bits(num_leafs: int, num_openings: int, tuple_size: int, element_size_bits: int,  hash_size_bits: int, expected: bool) -> int:
     """
     Compute the *worst case* or *expected* size of a Merkle multi-proof in bits.
@@ -74,4 +106,4 @@ def get_size_of_merkle_multi_proof_bits(num_leafs: int, num_openings: int, tuple
     if expected:
         return get_size_of_merkle_multi_proof_bits_expected(num_leafs, num_openings, tuple_size, element_size_bits, hash_size_bits)
     else:
-        return num_openings * get_size_of_merkle_proof_bits(num_leafs, tuple_size, element_size_bits, hash_size_bits)
+        return get_size_of_merkle_multi_proof_bits_worst_case(num_leafs, num_openings, tuple_size, element_size_bits, hash_size_bits)

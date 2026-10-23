@@ -13,13 +13,13 @@ def test_get_FRI_proof_size_bits():
     expected = 0
     expected += 3 * hash_size_bits
 
-    size_per_query = 0
-    size_per_query += 7 * hash_size_bits + 3 * field_size_bits
-    size_per_query += 6 * hash_size_bits + 2 * field_size_bits
-    size_per_query += 5 * hash_size_bits + 2 * field_size_bits
+    # Worst case multi-proofs of 10 openings: no siblings at depth d while 2^d <= 10,
+    # 16 - 10 = 6 at depth 4, and 10 at every depth below.
+    expected += 10 * 3 * field_size_bits + (6 + 10 + 10 + 10) * hash_size_bits  # 128 leaves
+    expected += 10 * 2 * field_size_bits + (6 + 10 + 10) * hash_size_bits  # 64 leaves
+    expected += 10 * 2 * field_size_bits + (6 + 10) * hash_size_bits  # 32 leaves
 
     expected += 16 * field_size_bits
-    expected += num_queries * size_per_query
 
     result = get_FRI_proof_size_bits(
         hash_size_bits,

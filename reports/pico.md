@@ -11,7 +11,7 @@ How to read this report:
 | Metric | Value | Relevant circuit | Notes |
 | --- | --- | --- | --- |
 | Final bits of security | **53 bits** | [riscv](#riscv) | Regime: JBR |
-| Final proof size (worst case) | **281 KiB** | [embed](#embed) | |
+| Final proof size (worst case) | **235 KiB** | [embed](#embed) | |
 
 ## Circuits
 
@@ -46,7 +46,7 @@ How to read this report:
 - Lookup (logup): program
 - Lookup (logup): syscall
 
-**Proof Size:** 2225 KiB (expected) / 2583 KiB (worst case)
+**Proof Size:** 2225 KiB (expected) / 2238 KiB (worst case)
 
 | regime | total | alu | byte | global_type | memory | poseidon2 | program | syscall | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 19 | commit round 2 | commit round 20 | commit round 21 | commit round 22 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -73,7 +73,7 @@ How to read this report:
 - Number of constraints: 323
 - Lookup (logup): memory
 
-**Proof Size:** 934 KiB (expected) / 1255 KiB (worst case)
+**Proof Size:** 934 KiB (expected) / 943 KiB (worst case)
 
 | regime | total | memory | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 19 | commit round 2 | commit round 20 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -100,7 +100,7 @@ How to read this report:
 - Number of constraints: 323
 - Lookup (logup): memory
 
-**Proof Size:** 861 KiB (expected) / 1146 KiB (worst case)
+**Proof Size:** 861 KiB (expected) / 867 KiB (worst case)
 
 | regime | total | memory | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -127,7 +127,7 @@ How to read this report:
 - Number of constraints: 323
 - Lookup (logup): memory
 
-**Proof Size:** 253 KiB (expected) / 308 KiB (worst case)
+**Proof Size:** 253 KiB (expected) / 257 KiB (worst case)
 
 | regime | total | memory | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -154,7 +154,7 @@ How to read this report:
 - Number of constraints: 323
 - Lookup (logup): memory
 
-**Proof Size:** 232 KiB (expected) / 281 KiB (worst case)
+**Proof Size:** 232 KiB (expected) / 235 KiB (worst case)
 
 | regime | total | memory | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

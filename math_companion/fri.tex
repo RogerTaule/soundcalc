@@ -119,3 +119,8 @@ calculated as\footnote{See \texttt{common/utils.py:get\_size\_of\_merkle\_multi\
     eMP(n,t, b,\bfield,\bhash) =   \underbrace{t\cdot b\cdot \bfield}_{\text{ size of all}}
     +\bhash\sum_{1\leq d\leq \lceil \log_{2} n\rceil}\lceil 2^d\left((1-2^{-d})^t-(1-2^{1-d})^t\right)\rceil
 \end{equation}
+For the worst case proof size, $eMP$ is replaced by the largest Merkle multi-proof,\footnote{See \texttt{common/utils.py:get\_size\_of\_merkle\_multi\_proof\_bits\_worst\_case()}.} reached when the $t' = \min(t, n)$ opened leaves are spread out as much as possible: at depth $d$ at most $\min(2^d, t')$ nodes lie on an opened path, so
+\begin{equation}
+    MP(n,t, b,\bfield,\bhash) = t'\cdot b\cdot \bfield + \bhash\sum_{\substack{1\leq d\leq \lceil \log_{2} n\rceil \\ 2^d > t'}} \begin{cases} 2^d - t' & \text{if } 2^{d-1} < t' \\ t' & \text{otherwise} \end{cases}
+\end{equation}
+(where a sibling at the leaf depth costs $\min(b\cdot\bfield, \bhash)$ instead of $\bhash$).

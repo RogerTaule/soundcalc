@@ -23,10 +23,11 @@ def test_get_STIR_proof_size_bits():
     expected += 2 * ext_field_bits
     # final polynomial: 2^1 coefficients
     expected += 2 * ext_field_bits
-    # queries into f_0: 16 leaves of 2*3 base elements; path = leaf + sibling + 3 hashes
-    expected += num_queries[0] * (6 * base_field_bits + min(6 * base_field_bits, hash_size_bits) + 3 * hash_size_bits)
-    # queries into f_1: 4 leaves of 4 ext elements; path = leaf + sibling + 1 hash
-    expected += num_queries[1] * (4 * ext_field_bits + min(4 * ext_field_bits, hash_size_bits) + 1 * hash_size_bits)
+    # queries into f_0: 10 of 16 leaves of 2*3 base elements; in the worst case, no siblings above
+    # the leaves and 16 - 10 = 6 sibling leaves, sent as their hash
+    expected += num_queries[0] * 6 * base_field_bits + 6 * hash_size_bits
+    # queries into f_1: 5 queries into 4 leaves of 4 ext elements open them all, with no siblings
+    expected += 4 * 4 * ext_field_bits
 
     result = get_STIR_proof_size_bits(
         hash_size_bits,

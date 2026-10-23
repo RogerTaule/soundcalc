@@ -11,7 +11,7 @@ How to read this report:
 | Metric | Value | Relevant circuit | Notes |
 | --- | --- | --- | --- |
 | Final bits of security | **128 bits** | [riscv](#riscv) | Regime: JBR |
-| Final proof size (worst case) | **1193 KiB** | [embed](#embed) | |
+| Final proof size (worst case) | **1175 KiB** | [embed](#embed) | |
 
 ## Circuits
 
@@ -41,7 +41,7 @@ How to read this report:
 - Lookup (logup): range_check_16
 - Lookup (logup): bus
 
-**Proof Size:** 1475 KiB (expected) / 1500 KiB (worst case)
+**Proof Size:** 1475 KiB (expected) / 1478 KiB (worst case)
 
 | regime | total | keccak | poseidon2 | range_check_16 | bus | ALI | DEEP | OOD(i=1) | OOD(i=2) | OOD(i=3) | OOD(i=4) | Shift(i=1) | Shift(i=2) | Shift(i=3) | Shift(i=4) | batching | fin | fold(i=0,s=1) | fold(i=0,s=2) | fold(i=0,s=3) | fold(i=0,s=4) | fold(i=1,s=1) | fold(i=1,s=2) | fold(i=1,s=3) | fold(i=1,s=4) | fold(i=2,s=1) | fold(i=2,s=2) | fold(i=2,s=3) | fold(i=2,s=4) | fold(i=3,s=1) | fold(i=3,s=2) | fold(i=3,s=3) | fold(i=3,s=4) | fold(i=4,s=1) | fold(i=4,s=2) | fold(i=4,s=3) | fold(i=4,s=4) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -67,7 +67,7 @@ How to read this report:
 - Number of constraints: 300
 - Lookup (logup): memory
 
-**Proof Size:** 1217 KiB (expected) / 1241 KiB (worst case)
+**Proof Size:** 1217 KiB (expected) / 1220 KiB (worst case)
 
 | regime | total | memory | ALI | DEEP | OOD(i=1) | OOD(i=2) | OOD(i=3) | OOD(i=4) | Shift(i=1) | Shift(i=2) | Shift(i=3) | Shift(i=4) | batching | fin | fold(i=0,s=1) | fold(i=0,s=2) | fold(i=0,s=3) | fold(i=0,s=4) | fold(i=1,s=1) | fold(i=1,s=2) | fold(i=1,s=3) | fold(i=1,s=4) | fold(i=2,s=1) | fold(i=2,s=2) | fold(i=2,s=3) | fold(i=2,s=4) | fold(i=3,s=1) | fold(i=3,s=2) | fold(i=3,s=3) | fold(i=3,s=4) | fold(i=4,s=1) | fold(i=4,s=2) | fold(i=4,s=3) | fold(i=4,s=4) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -93,7 +93,7 @@ How to read this report:
 - Number of constraints: 300
 - Lookup (logup): memory
 
-**Proof Size:** 1199 KiB (expected) / 1221 KiB (worst case)
+**Proof Size:** 1199 KiB (expected) / 1201 KiB (worst case)
 
 | regime | total | memory | ALI | DEEP | OOD(i=1) | OOD(i=2) | OOD(i=3) | Shift(i=1) | Shift(i=2) | Shift(i=3) | batching | fin | fold(i=0,s=1) | fold(i=0,s=2) | fold(i=0,s=3) | fold(i=0,s=4) | fold(i=1,s=1) | fold(i=1,s=2) | fold(i=1,s=3) | fold(i=1,s=4) | fold(i=2,s=1) | fold(i=2,s=2) | fold(i=2,s=3) | fold(i=2,s=4) | fold(i=3,s=1) | fold(i=3,s=2) | fold(i=3,s=3) | fold(i=3,s=4) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -119,7 +119,7 @@ How to read this report:
 - Number of constraints: 300
 - Lookup (logup): memory
 
-**Proof Size:** 1173 KiB (expected) / 1193 KiB (worst case)
+**Proof Size:** 1173 KiB (expected) / 1175 KiB (worst case)
 
 | regime | total | memory | ALI | DEEP | OOD(i=1) | OOD(i=2) | Shift(i=1) | Shift(i=2) | batching | fin | fold(i=0,s=1) | fold(i=0,s=2) | fold(i=0,s=3) | fold(i=0,s=4) | fold(i=1,s=1) | fold(i=1,s=2) | fold(i=1,s=3) | fold(i=1,s=4) | fold(i=2,s=1) | fold(i=2,s=2) | fold(i=2,s=3) | fold(i=2,s=4) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

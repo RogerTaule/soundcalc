@@ -11,7 +11,7 @@ How to read this report:
 | Metric | Value | Relevant circuit | Notes |
 | --- | --- | --- | --- |
 | Final bits of security | **100 bits** | [core](#core) | Regime: UDR |
-| Final proof size (worst case) | **887 KiB** | [shrink](#shrink) | |
+| Final proof size (worst case) | **545 KiB** | [shrink](#shrink) | |
 
 ## Circuits
 
@@ -39,7 +39,7 @@ How to read this report:
 - Batching: Affine
 - Lookup (logup): lookup
 
-**Proof Size:** 918 KiB (expected) / 1479 KiB (worst case)
+**Proof Size:** 918 KiB (expected) / 944 KiB (worst case)
 
 | regime | total | lookup | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 19 | commit round 2 | commit round 20 | commit round 21 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase | reduce to dense PCS | zerocheck |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -66,7 +66,7 @@ How to read this report:
 - Batching: Affine
 - Lookup (logup): lookup
 
-**Proof Size:** 735 KiB (expected) / 1267 KiB (worst case)
+**Proof Size:** 735 KiB (expected) / 758 KiB (worst case)
 
 | regime | total | lookup | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 19 | commit round 2 | commit round 20 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase | reduce to dense PCS | zerocheck |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -93,7 +93,7 @@ How to read this report:
 - Batching: Affine
 - Lookup (logup): lookup
 
-**Proof Size:** 529 KiB (expected) / 887 KiB (worst case)
+**Proof Size:** 529 KiB (expected) / 545 KiB (worst case)
 
 | regime | total | lookup | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase | reduce to dense PCS | zerocheck |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
