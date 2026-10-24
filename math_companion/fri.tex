@@ -117,10 +117,11 @@ where each leaf has $b$ elements of $\bfield$ bits each,
 calculated as\footnote{See \texttt{common/utils.py:get\_size\_of\_merkle\_multi\_proof\_bits\_expected()}.}
 \begin{equation}
     eMP(n,t, b,\bfield,\bhash) =   \underbrace{t\cdot b\cdot \bfield}_{\text{ size of all}}
-    +\bhash\sum_{1\leq d\leq \lceil \log_{2} n\rceil}\lceil 2^d\left((1-2^{-d})^t-(1-2^{1-d})^t\right)\rceil
+    +\left\lceil\sum_{1\leq d\leq \lceil \log_{2} n\rceil} s_d \cdot 2^d\left((1-2^{-d})^t-(1-2^{1-d})^t\right)\right\rceil
 \end{equation}
-For the worst case proof size, $eMP$ is replaced by the largest Merkle multi-proof,\footnote{See \texttt{common/utils.py:get\_size\_of\_merkle\_multi\_proof\_bits\_worst\_case()}.} reached when the $t' = \min(t, n)$ opened leaves are spread out as much as possible: at depth $d$ at most $\min(2^d, t')$ nodes lie on an opened path, so
+where $s_d = \bhash$, except at the leaf depth $d = \lceil \log_2 n \rceil$, where a sibling leaf is sent instead of its hash if it is smaller: $s_d = \min(b\cdot\bfield, \bhash)$.
+
+For the worst case proof size, $eMP$ is replaced by the largest Merkle multi-proof.\footnote{See \texttt{common/utils.py:get\_size\_of\_merkle\_multi\_proof\_bits\_worst\_case()}.} Queries may repeat a leaf, so we maximize over the number $k \leq \min(t, n)$ of distinct opened leaves. For a given $k$, the worst case is reached when the leaves are spread out as much as possible, so that $\min(2^d, k)$ nodes at depth $d$ lie on an opened path. The children of the $\min(2^{d-1}, k)$ path nodes at depth $d-1$ that are not on a path themselves are sent, so
 \begin{equation}
-    MP(n,t, b,\bfield,\bhash) = t'\cdot b\cdot \bfield + \bhash\sum_{\substack{1\leq d\leq \lceil \log_{2} n\rceil \\ 2^d > t'}} \begin{cases} 2^d - t' & \text{if } 2^{d-1} < t' \\ t' & \text{otherwise} \end{cases}
+    MP(n,t, b,\bfield,\bhash) = t\cdot b\cdot \bfield + \max_{1 \leq k \leq \min(t, n)} \sum_{1\leq d\leq \lceil \log_{2} n\rceil} s_d \left(2\min(2^{d-1}, k) - \min(2^d, k)\right)
 \end{equation}
-(where a sibling at the leaf depth costs $\min(b\cdot\bfield, \bhash)$ instead of $\bhash$).

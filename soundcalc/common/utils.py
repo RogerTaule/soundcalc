@@ -56,15 +56,19 @@ def get_size_of_merkle_multi_proof_bits_expected(num_leafs: int, num_openings: i
     """
     assert num_leafs > 0
 
-    leafs_size = num_openings * tuple_size * element_size_bits
+    leaf_size = tuple_size * element_size_bits
+    leafs_size = num_openings * leaf_size
 
     tree_depth = math.ceil(math.log2(num_leafs))
 
-    num_hashes = 0
+    # Round once at the end, not per level, so that it never exceeds the worst case.
+    siblings_size = 0
     for d in range(1, tree_depth +1):
         prob_sibling_in_proof = ((1 - 2**(-d))**num_openings - (1 - 2**(1-d))**num_openings)
-        num_hashes += math.ceil(2**d * prob_sibling_in_proof)
-    return leafs_size + num_hashes * hash_size_bits
+        # As in a single Merkle path, a sibling leaf is sent instead of its hash if it is smaller.
+        sibling_size = min(leaf_size, hash_size_bits) if d == tree_depth else hash_size_bits
+        siblings_size += 2**d * prob_sibling_in_proof * sibling_size
+    return leafs_size + math.ceil(siblings_size)
 
 
 def get_size_of_merkle_multi_proof_bits_worst_case(num_leafs: int, num_openings: int, tuple_size: int, element_size_bits: int,  hash_size_bits: int) -> int:
@@ -75,28 +79,31 @@ def get_size_of_merkle_multi_proof_bits_worst_case(num_leafs: int, num_openings:
 
     Note: the result counts both the leafs and the Merkle path.
 
-    The worst case is reached when the opened leaves are spread out as much as possible.
-    At depth d at most min(2^d, t) nodes lie on an opened path, so for 2^d <= t every node
-    is on a path and no sibling is sent. At the depth where the paths split (2^{d-1} < t < 2^d),
-    2^d - t path nodes have their sibling off the paths, and below it all t of them do.
+    Queries may repeat a leaf, so we take the max over the number k of distinct opened leaves:
+    fewer leaves can mean more siblings. For a given k, the worst case is reached when the
+    leaves are spread out as much as possible. At depth d at most min(2^d, k) nodes lie on an
+    opened path, so no sibling is sent while 2^d <= k, 2^d - k are sent where the paths split
+    (2^{d-1} < k < 2^d), and k at every depth below.
     """
     assert num_leafs > 0
 
-    num_openings = min(num_openings, num_leafs)
     leaf_size = tuple_size * element_size_bits
     leafs_size = num_openings * leaf_size
 
     tree_depth = math.ceil(math.log2(num_leafs))
 
-    siblings_size = 0
-    for d in range(1, tree_depth + 1):
-        if 2**d <= num_openings:
-            continue
-        num_siblings = 2**d - num_openings if 2**(d - 1) < num_openings else num_openings
-        # As in a single Merkle path, a sibling leaf is sent instead of its hash if it is smaller.
-        sibling_size = min(leaf_size, hash_size_bits) if d == tree_depth else hash_size_bits
-        siblings_size += num_siblings * sibling_size
-    return leafs_size + siblings_size
+    max_siblings_size = 0
+    for k in range(1, min(num_openings, num_leafs) + 1):
+        siblings_size = 0
+        for d in range(1, tree_depth + 1):
+            if 2**d <= k:
+                continue
+            num_siblings = 2**d - k if 2**(d - 1) < k else k
+            # As in a single Merkle path, a sibling leaf is sent instead of its hash if it is smaller.
+            sibling_size = min(leaf_size, hash_size_bits) if d == tree_depth else hash_size_bits
+            siblings_size += num_siblings * sibling_size
+        max_siblings_size = max(max_siblings_size, siblings_size)
+    return leafs_size + max_siblings_size
 
 
 def get_size_of_merkle_multi_proof_bits(num_leafs: int, num_openings: int, tuple_size: int, element_size_bits: int,  hash_size_bits: int, expected: bool) -> int:
