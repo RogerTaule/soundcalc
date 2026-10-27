@@ -7,26 +7,29 @@ from soundcalc.common.utils import (
 )
 
 
-def _num_siblings(indices, depth):
-    """Number of siblings a Merkle multi-proof opening `indices` sends."""
-    known, siblings = set(indices), 0
-    for _ in range(depth):
-        siblings += len({i ^ 1 for i in known} - known)
+def _siblings_size(indices, depth, leaf_size, hash_size):
+    """Size of the siblings a Merkle multi-proof opening `indices` sends."""
+    known, size = set(indices), 0
+    for d in range(depth, 0, -1):
+        sibling_size = min(leaf_size, hash_size) if d == depth else hash_size
+        size += len({i ^ 1 for i in known} - known) * sibling_size
         known = {i >> 1 for i in known}
-    return siblings
+    return size
 
 
 def test_worst_case_multi_proof_matches_brute_force():
-    # leaves of one element, elements and hashes of one bit: the size is t + the number of siblings.
-    # Queries may repeat a leaf, so t queries open any k <= t distinct leaves.
+    # Queries may repeat a leaf, so t queries open any k <= t distinct leaves. Leaves smaller than
+    # half a hash are included: then spreading out a fixed number of leaves is not the worst case.
     for depth in range(1, 5):
         for t in range(1, 2**depth + 3):
-            worst = max(
-                _num_siblings(c, depth)
-                for k in range(1, min(t, 2**depth) + 1)
-                for c in combinations(range(2**depth), k)
-            )
-            assert get_size_of_merkle_multi_proof_bits_worst_case(2**depth, t, 1, 1, 1) == t + worst
+            for leaf_size, hash_size in [(1, 1), (1, 4), (3, 4), (4, 1)]:
+                worst = max(
+                    _siblings_size(c, depth, leaf_size, hash_size)
+                    for k in range(1, min(t, 2**depth) + 1)
+                    for c in combinations(range(2**depth), k)
+                )
+                result = get_size_of_merkle_multi_proof_bits_worst_case(2**depth, t, leaf_size, 1, hash_size)
+                assert result == t * leaf_size + worst
 
 
 def test_worst_case_multi_proof_is_at_least_expected():

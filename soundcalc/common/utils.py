@@ -79,11 +79,22 @@ def get_size_of_merkle_multi_proof_bits_worst_case(num_leafs: int, num_openings:
 
     Note: the result counts both the leafs and the Merkle path.
 
-    Queries may repeat a leaf, so we take the max over the number k of distinct opened leaves:
-    fewer leaves can mean more siblings. For a given k, the worst case is reached when the
-    leaves are spread out as much as possible. At depth d at most min(2^d, k) nodes lie on an
-    opened path, so no sibling is sent while 2^d <= k, 2^d - k are sent where the paths split
-    (2^{d-1} < k < 2^d), and k at every depth below.
+    Let p_d be the number of nodes at depth d on an opened path (p_0 = 1), and D the tree depth.
+    The children of the p_{d-1} path nodes at depth d-1 that are not on a path are sent as
+    siblings: 2 p_{d-1} - p_d of them, as hashes above the leaves and as leaves (or their hash,
+    if smaller) at the leaves.
+
+    Every path node has a path child, so p_d <= min(2^d, p_{D-1}) for d < D, and p_D >= p_{D-1}.
+    Hence, for a fixed j = p_{D-1}:
+    - at most j siblings are sent at the leaves, with equality if every path node at depth D-1
+      has exactly one opened child;
+    - the hashes above the leaves, the sum over d < D of 2 p_{d-1} - p_d, only grow with each
+      p_d for d < D-1, so they are largest when p_d = min(2^d, j).
+    Opening j leaves spread out as much as possible reaches both bounds, so every opening is at
+    most as large as the spread opening with the same j, and we take the max over
+    j <= min(t, num_leafs). Note that for a fixed number of opened leaves, spreading them out is
+    not always the worst case (two opened sibling leaves can cost less than one hash), but
+    closing one of them never makes the proof smaller.
     """
     assert num_leafs > 0
 
@@ -93,12 +104,11 @@ def get_size_of_merkle_multi_proof_bits_worst_case(num_leafs: int, num_openings:
     tree_depth = math.ceil(math.log2(num_leafs))
 
     max_siblings_size = 0
-    for k in range(1, min(num_openings, num_leafs) + 1):
+    for j in range(1, min(num_openings, num_leafs) + 1):
         siblings_size = 0
         for d in range(1, tree_depth + 1):
-            if 2**d <= k:
-                continue
-            num_siblings = 2**d - k if 2**(d - 1) < k else k
+            # With j leaves spread out, min(2^d, j) nodes at depth d are on a path.
+            num_siblings = 2 * min(2**(d - 1), j) - min(2**d, j)
             # As in a single Merkle path, a sibling leaf is sent instead of its hash if it is smaller.
             sibling_size = min(leaf_size, hash_size_bits) if d == tree_depth else hash_size_bits
             siblings_size += num_siblings * sibling_size

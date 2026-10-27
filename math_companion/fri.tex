@@ -121,7 +121,15 @@ calculated as\footnote{See \texttt{common/utils.py:get\_size\_of\_merkle\_multi\
 \end{equation}
 where $s_d = \bhash$, except at the leaf depth $d = \lceil \log_2 n \rceil$, where a sibling leaf is sent instead of its hash if it is smaller: $s_d = \min(b\cdot\bfield, \bhash)$.
 
-For the worst case proof size, $eMP$ is replaced by the largest Merkle multi-proof.\footnote{See \texttt{common/utils.py:get\_size\_of\_merkle\_multi\_proof\_bits\_worst\_case()}.} Queries may repeat a leaf, so we maximize over the number $k \leq \min(t, n)$ of distinct opened leaves. For a given $k$, the worst case is reached when the leaves are spread out as much as possible, so that $\min(2^d, k)$ nodes at depth $d$ lie on an opened path. The children of the $\min(2^{d-1}, k)$ path nodes at depth $d-1$ that are not on a path themselves are sent, so
+For the worst case proof size, $eMP$ is replaced by the largest Merkle multi-proof.\footnote{See \texttt{common/utils.py:get\_size\_of\_merkle\_multi\_proof\_bits\_worst\_case()}.} Every query sends its leaf, and queries may repeat a leaf, so the $t$ queries open some $k \leq \min(t, n)$ distinct leaves. Let $D = \lceil \log_2 n \rceil$ and let $p_d$ be the number of nodes at depth $d$ on an opened path, so $p_0 = 1$ and $p_D = k$. The children of the $p_{d-1}$ path nodes at depth $d-1$ that are not on a path themselves are sent, which is $2p_{d-1} - p_d$ siblings at depth $d$. We show that
 \begin{equation}
-    MP(n,t, b,\bfield,\bhash) = t\cdot b\cdot \bfield + \max_{1 \leq k \leq \min(t, n)} \sum_{1\leq d\leq \lceil \log_{2} n\rceil} s_d \left(2\min(2^{d-1}, k) - \min(2^d, k)\right)
+    MP(n,t, b,\bfield,\bhash) = t\cdot b\cdot \bfield + \max_{1 \leq j \leq \min(t, n)} \sum_{1\leq d\leq D} s_d \left(2\min(2^{d-1}, j) - \min(2^d, j)\right)
 \end{equation}
+is the largest multi-proof. Let $j = p_{D-1}$. Every path node has a child on a path, so $p_{d-1} \leq p_d$, hence $p_d \leq \min(2^d, j)$ for $d < D$ and $k \geq j$. Then:
+\begin{itemize}
+    \item at the leaves, $2j - k \leq j$ siblings are sent;
+    \item above the leaves, the number of hashes $\sum_{d=1}^{D-1} (2p_{d-1} - p_d) = 2 + \sum_{d=1}^{D-2} p_d - j$ (for $D \geq 2$, and none for $D = 1$) grows with each $p_d$, so it is largest when $p_d = \min(2^d, j)$.
+\end{itemize}
+Opening $j$ leaves spread out as much as possible reaches both bounds: take one child of each of the first $j$ nodes at depth $D-1$ in bit-reversed order. These have $\min(2^d, j)$ distinct ancestors at each depth $d$, since the first $2^d$ of them have all $2^d$ possible top $d$ bits. So every opening is at most as large as the spread opening with the same $j$, whose size is the term for $j$, and $j \leq k \leq \min(t, n)$. (The terms for $j > 2^{D-1}$ are spread openings too, so they do not change the maximum.)
+
+Note that for a fixed number of opened leaves, spreading them out is not always the worst case (two opened sibling leaves can cost less than one hash), but closing one of them never makes the proof smaller.
