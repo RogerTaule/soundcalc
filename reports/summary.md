@@ -3,7 +3,7 @@
 How to read this report:
 - Click on zkVM names to view detailed individual reports
 - Security shows the best bits of security across the reported regimes
-- Only zkVMs with at least 100 bits of security and an expected proof size below 600 KiB are shown
+- Only zkVMs with at least [100 bits of security](https://blog.ethereum.org/2025/12/18/zkevm-security-foundations#three-milestones) and an expected proof size below 600 KiB are shown
 
 ## Overview
 
