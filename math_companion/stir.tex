@@ -76,15 +76,15 @@ The OOD point is sampled from $\mathbb{F} \setminus L_i$, hence the denominator.
 
 \section{STIR Proof Size Calculations}
 
-Computed in \verb|get_STIR_proof_size_bits()|. Prover messages are: the Merkle root of $f_0$; for $i \in \{1,\ldots,M-1\}$ the Merkle root of $f_i$ and the $s_i$ OOD answers; the final polynomial of degree $< 2^{m_M}$ in the clear; and for every $f_i$, $i\in\{0,\ldots,M-1\}$, a Merkle multi-proof opening $t_i$ leaves, where a leaf holds a folding block of $2^{k_i}$ elements (times $B$ for the batched $f_0$, which lives over the base field):
+Computed in \verb|get_STIR_proof_size_bits()|. As in FRI, the batched $f_0$ is committed in its own tree. Prover messages are: the Merkle roots of the $B$ batched functions and of $f_0$; for $i \in \{1,\ldots,M-1\}$ the Merkle root of $f_i$ and the $s_i$ OOD answers; the final polynomial of degree $< 2^{m_M}$ in the clear; a Merkle multi-proof opening the $B$ batched (base field) functions at $t_0$ points; and for every $f_i$, $i\in\{0,\ldots,M-1\}$, a Merkle multi-proof opening $t_i$ leaves, where a leaf holds a folding block of $2^{k_i}$ elements:
 \[
 \boxed{
 \begin{align}
 S_{\mathrm{total}}
-  = \bhash + \sum_{i=1}^{M-1}\left(\bhash + s_i \bfield\right) + 2^{m_M}\bfield
-  &+ eMP(2^{m_0+\mu_0-k_0}, t_0, B\cdot 2^{k_0}, \bprime, \bhash) \\
-  &+ \sum_{i=1}^{M-1} eMP(2^{m_i+\mu_i-k_i}, t_i, 2^{k_i}, \bfield, \bhash)
+  = 2\bhash + \sum_{i=1}^{M-1}\left(\bhash + s_i \bfield\right) + 2^{m_M}\bfield
+  &+ eMP(2^{m_0+\mu_0}, t_0, B, \bprime, \bhash) \\
+  &+ \sum_{i=0}^{M-1} eMP(2^{m_i+\mu_i-k_i}, t_i, 2^{k_i}, \bfield, \bhash)
 \end{align}
 }
 \]
-With \verb|initial_tree_widths| $(w_1, \ldots, w_s)$, the batched functions live in $s$ trees instead: the root of $f_0$ and $eMP(2^{m_0+\mu_0-k_0}, t_0, B\cdot 2^{k_0}, \bprime, \bhash)$ become $\sum_{j=1}^{s} \left(\bhash + eMP(2^{m_0+\mu_0-k_0}, t_0, w_j\cdot 2^{k_0}, \bprime, \bhash)\right)$.
+With \verb|initial_tree_widths| $(w_1, \ldots, w_s)$, the batched functions live in $s$ trees instead: their root and $eMP(2^{m_0+\mu_0}, t_0, B, \bprime, \bhash)$ become $\sum_{j=1}^{s} \left(\bhash + eMP(2^{m_0+\mu_0}, t_0, w_j, \bprime, \bhash)\right)$.
