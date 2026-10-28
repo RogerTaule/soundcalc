@@ -137,7 +137,16 @@ class FRIConfig:
     # (This is useful to pin fixed parameters in TOML configs.)
     gap_to_radius: Optional[float] = None
 
-    # Base field columns of each tree committed before FRI (default: all batch_size functions in one tree)
+    # Number of base field columns in each Merkle tree committed before FRI.
+    # A univariate STARK commits one tree per stage:
+    #
+    #   [fixed, stage 1, ..., stage n, quotient]
+    #
+    # e.g. [12, 40, 9, 6]. A column over an extension field of degree d counts as d,
+    # since each of its values is stored as d base field elements. Each query opens
+    # the same row in every tree, so the proof has one root and one Merkle path per
+    # tree. Only affects proof size.
+    # If unset, all batch_size functions are in one tree of extension field elements.
     initial_tree_widths: Optional[list[int]] = None
     # Out-of-domain evaluations sent in the proof (extension field elements)
     num_evals: int = 0

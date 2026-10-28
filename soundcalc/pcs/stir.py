@@ -148,7 +148,8 @@ class STIRConfig:
     # Optional override for the bound *gap*.
     gap_to_radius: Optional[float] = None
 
-    # Base field columns of each tree committed before STIR (default: all batched functions in one tree).
+    # Number of base field columns in each Merkle tree committed before STIR, as in FRIConfig.
+    # If unset, all batch_size functions are in one tree of base field elements.
     initial_tree_widths: Optional[list[int]] = None
     # Out-of-domain evaluations sent in the proof (extension field elements).
     num_evals: int = 0
