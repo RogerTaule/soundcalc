@@ -300,6 +300,8 @@ class FRI(PCS):
             "domain_size D = trace_length / rho": self.D,
             "batch_size": self.batch_size,
             "power_batching": self.power_batching,
+            "initial_tree_widths": self.initial_tree_widths,
+            "num_evals": self.num_evals,
             "num_queries": self.num_queries,
             "gap_to_radius": self.gap_to_radius,
             "FRI_folding_factors": self.FRI_folding_factors,
@@ -339,4 +341,8 @@ class FRI(PCS):
             f"- Batch size: {self.batch_size}",
             f"- Batching: {batching}",
         ])
+        if self.initial_tree_widths:
+            lines.append(f"- Initial commitment trees (base field columns): {self.initial_tree_widths}")
+        if self.num_evals > 0:
+            lines.append(f"- Out-of-domain evaluations sent: {self.num_evals}")
         return lines

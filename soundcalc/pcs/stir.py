@@ -407,6 +407,8 @@ class STIR(PCS):
         params = {
             "hash_size_bits": self.hash_size_bits,
             "batch_size": self.batch_size,
+            "initial_tree_widths": self.initial_tree_widths,
+            "num_evals": self.num_evals,
             "gap_to_radius": self.gap_to_radius,
             "power_batching": self.power_batching,
             "grinding_batching_phase": self.grinding_batching_phase,
@@ -438,7 +440,7 @@ class STIR(PCS):
 
     def get_report_parameter_lines(self) -> list[str]:
         batching = "Powers" if self.power_batching else "Affine"
-        return [
+        lines = [
             f"- Hash size (bits): {self.hash_size_bits}",
             f"- Field: {self.field.to_string()}",
             f"- Iterations (M): {self.num_iterations}",
@@ -451,3 +453,8 @@ class STIR(PCS):
             f"- OOD samples per iteration: {self.num_ood_samples}",
             f"- Total grinding overhead log2: {self.log_grinding_overhead}",
         ]
+        if self.initial_tree_widths:
+            lines.append(f"- Initial commitment trees (base field columns): {self.initial_tree_widths}")
+        if self.num_evals > 0:
+            lines.append(f"- Out-of-domain evaluations sent: {self.num_evals}")
+        return lines
