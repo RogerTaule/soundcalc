@@ -7,7 +7,6 @@ from soundcalc.common.utils import (
     apply_grinding,
     get_bits_of_security_from_error,
     get_size_of_merkle_multi_proof_bits,
-    get_size_of_merkle_proof_bits,
 )
 from soundcalc.pcs.pcs import PCS
 from soundcalc.proxgaps.proxgaps_regime import ProximityGapsRegime
