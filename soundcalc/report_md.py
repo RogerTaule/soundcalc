@@ -442,7 +442,8 @@ def _build_summary_report(zkvms: list[zkVM]) -> str:
         "How to read this report:",
         "- Click on zkVM names to view detailed individual reports",
         "- Security shows the best bits of security across the reported regimes",
-        f"- Only zkVMs with at least {_SUMMARY_MIN_SECURITY_BITS} bits of security "
+        f"- Only zkVMs with at least [{_SUMMARY_MIN_SECURITY_BITS} bits of security]"
+        "(https://blog.ethereum.org/2025/12/18/zkevm-security-foundations#three-milestones) "
         f"and an expected proof size below {_SUMMARY_MAX_EXPECTED_PROOF_SIZE_KIB} KiB are shown",
         "",
         "## Overview",
