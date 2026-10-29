@@ -11,7 +11,7 @@ How to read this report:
 | Metric | Value | Relevant circuit | Notes |
 | --- | --- | --- | --- |
 | Final bits of security | **100 bits** | [app](#app) | Regime: UDR |
-| Final proof size (worst case) | **8231 KiB** | [internal](#internal) | |
+| Final proof size (worst case) | **7728 KiB** | [internal](#internal) | |
 
 ## Circuits
 
@@ -39,7 +39,7 @@ How to read this report:
 - Grinding DEEP (bits): 5
 - Number of constraints: 15000
 
-**Proof Size:** 234635 KiB (expected) / 235651 KiB (worst case)
+**Proof Size:** 234627 KiB (expected) / 234702 KiB (worst case)
 
 | regime | total | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 19 | commit round 2 | commit round 20 | commit round 21 | commit round 22 | commit round 23 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -67,7 +67,7 @@ How to read this report:
 - Grinding DEEP (bits): 5
 - Number of constraints: 15000
 
-**Proof Size:** 234635 KiB (expected) / 235651 KiB (worst case)
+**Proof Size:** 234627 KiB (expected) / 234702 KiB (worst case)
 
 | regime | total | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 19 | commit round 2 | commit round 20 | commit round 21 | commit round 22 | commit round 23 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -96,7 +96,7 @@ How to read this report:
 - Number of constraints: 15000
 - Lookup (logup): lookup
 
-**Proof Size:** 7687 KiB (expected) / 8231 KiB (worst case)
+**Proof Size:** 7681 KiB (expected) / 7728 KiB (worst case)
 
 | regime | total | lookup | ALI | DEEP | batching | commit round 1 | commit round 10 | commit round 11 | commit round 12 | commit round 13 | commit round 14 | commit round 15 | commit round 16 | commit round 17 | commit round 18 | commit round 19 | commit round 2 | commit round 20 | commit round 21 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | commit round 7 | commit round 8 | commit round 9 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

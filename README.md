@@ -67,7 +67,7 @@ The soundcalc proof size estimate is based on counting Merkle proofs and their s
 Reports show two estimates:
 
 - **Expected:** Accounts for Merkle path sharing when random queries overlap in the tree (path pruning optimization)
-- **Worst case:** Assumes no overlap: each query contributes a full independent path.
+- **Worst case:** The largest possible multi-proof over all query positions, i.e. queries whose Merkle paths share as few nodes as possible.
 
 In practice, actual proof sizes tend to be closer to the expected estimate.
 

@@ -76,7 +76,7 @@ class PCS(ABC):
         """
         Returns the estimated proof size in bits.
 
-        With `expected=False` this is the worst case (every query opens a full Merkle path).
+        With `expected=False` this is the worst case (the largest Merkle multi-proof over all query positions).
         With `expected=True` it accounts for Merkle path sharing between queries.
         """
         ...

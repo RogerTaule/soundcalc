@@ -23,12 +23,15 @@ def test_get_STIR_proof_size_bits():
     expected += 2 * ext_field_bits
     # final polynomial: 2^1 coefficients
     expected += 2 * ext_field_bits
-    # queries into the batched functions: 32 leaves of 3 base elements; path = leaf + sibling + 4 hashes
-    expected += num_queries[0] * (3 * base_field_bits + min(3 * base_field_bits, hash_size_bits) + 4 * hash_size_bits)
-    # queries into f_0: 16 leaves of 2 ext elements; path = leaf + sibling + 3 hashes
-    expected += num_queries[0] * (2 * ext_field_bits + min(2 * ext_field_bits, hash_size_bits) + 3 * hash_size_bits)
-    # queries into f_1: 4 leaves of 4 ext elements; path = leaf + sibling + 1 hash
-    expected += num_queries[1] * (4 * ext_field_bits + min(4 * ext_field_bits, hash_size_bits) + 1 * hash_size_bits)
+    # queries into the batched functions: 10 queries into 32 leaves of 3 base elements; worst case:
+    # they open 10 leaves spread out, so 6 hashes and 10 sibling leaves (sent as their hash)
+    expected += num_queries[0] * 3 * base_field_bits + 16 * hash_size_bits
+    # queries into f_0: 10 queries into 16 leaves of 2 ext elements; worst case: they open
+    # every other leaf, so 8 sibling leaves are sent as their hash
+    expected += num_queries[0] * 2 * ext_field_bits + 8 * hash_size_bits
+    # queries into f_1: 5 queries into 4 leaves of 4 ext elements; worst case: they open
+    # every other leaf, so 2 sibling leaves are sent as their hash
+    expected += num_queries[1] * 4 * ext_field_bits + 2 * hash_size_bits
 
     result = get_STIR_proof_size_bits(
         hash_size_bits,
@@ -50,7 +53,7 @@ def test_get_STIR_proof_size_bits():
         hash_size_bits, base_field_bits, ext_field_bits, batch_size, folding_factors, log_degrees,
         log_inv_rates, num_queries, num_ood_samples, False, initial_tree_widths=[2, 1],
     )
-    assert widths == result - 10 * (3 + 1 + 4) + 1 + 10 * (2 + 1 + 4) + 10 * (1 + 1 + 4)
+    assert widths == result - (10 * 3 + 16) + 1 + (10 * 2 + 16) + (10 * 1 + 16)
 
 
 def test_dummy_stir_loads_and_reaches_target():

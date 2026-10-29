@@ -28,7 +28,7 @@ How to read this report:
 - Lookup (logup): range_check_19_lookup
 - Lookup (logup): decoder
 
-**Proof Size:** 1836 KiB (expected) / 1951 KiB (worst case)
+**Proof Size:** 1834 KiB (expected) / 1845 KiB (worst case)
 
 | regime | total | generic_lookup | range_check_16_lookup | range_check_19_lookup | decoder | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

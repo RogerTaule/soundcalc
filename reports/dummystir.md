@@ -22,7 +22,7 @@ How to read this report:
 - Total grinding overhead log2: 23.53
 - Number of constraints: 500
 
-**Proof Size:** 215 KiB (expected) / 248 KiB (worst case)
+**Proof Size:** 214 KiB (expected) / 218 KiB (worst case)
 
 | regime | total | ALI | DEEP | OOD(i=1) | OOD(i=2) | OOD(i=3) | batching | fin | fold(i=0) | shift(i=1) | shift(i=2) | shift(i=3) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

@@ -11,7 +11,7 @@ How to read this report:
 | Metric | Value | Relevant circuit | Notes |
 | --- | --- | --- | --- |
 | Final bits of security | **128 bits** | [Dma](#dma) | Regime: JBR |
-| Final proof size (worst case) | **313 KiB** | [Final_Compressed](#final_compressed) | |
+| Final proof size (worst case) | **274 KiB** | [Final_Compressed](#final_compressed) | |
 
 ## Circuits
 
@@ -86,7 +86,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[103]
 - Lookup (logup): Range Check_gsum_[104]
 
-**Proof Size:** 748 KiB (expected) / 1142 KiB (worst case)
+**Proof Size:** 747 KiB (expected) / 776 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | Lookup_gsum_[77] | Lookup_gsum_[8001] | Permutation_gsum_[10] | Permutation_gsum_[8000] | Range Check_gsum_[102] | Range Check_gsum_[103] | Range Check_gsum_[104] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -119,7 +119,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[102]
 - Lookup (logup): Range Check_gsum_[104]
 
-**Proof Size:** 679 KiB (expected) / 1072 KiB (worst case)
+**Proof Size:** 677 KiB (expected) / 706 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | Lookup_gsum_[77] | Lookup_gsum_[8001] | Permutation_gsum_[10] | Permutation_gsum_[8000] | Range Check_gsum_[102] | Range Check_gsum_[104] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -152,7 +152,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[104]
 - Lookup (logup): Range Check_gsum_[105]
 
-**Proof Size:** 646 KiB (expected) / 1040 KiB (worst case)
+**Proof Size:** 645 KiB (expected) / 674 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | Lookup_gsum_[8001] | Permutation_gsum_[10] | Permutation_gsum_[8000] | Range Check_gsum_[102] | Range Check_gsum_[104] | Range Check_gsum_[105] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -185,7 +185,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[102]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 838 KiB (expected) / 1233 KiB (worst case)
+**Proof Size:** 836 KiB (expected) / 866 KiB (worst case)
 
 | regime | total | Direct_gsum_[5000] | Direct_gsum_[8200] | Lookup_gsum_[5000] | Lookup_gsum_[88] | Permutation_gsum_[10] | Range Check_gsum_[102] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -218,7 +218,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[102]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 738 KiB (expected) / 1131 KiB (worst case)
+**Proof Size:** 736 KiB (expected) / 765 KiB (worst case)
 
 | regime | total | Direct_gsum_[5000] | Direct_gsum_[8200] | Lookup_gsum_[5000] | Lookup_gsum_[88] | Permutation_gsum_[10] | Range Check_gsum_[102] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -249,7 +249,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 662 KiB (expected) / 1056 KiB (worst case)
+**Proof Size:** 661 KiB (expected) / 690 KiB (worst case)
 
 | regime | total | Direct_gsum_[5000] | Direct_gsum_[8200] | Lookup_gsum_[5000] | Permutation_gsum_[10] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -280,7 +280,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 748 KiB (expected) / 1142 KiB (worst case)
+**Proof Size:** 747 KiB (expected) / 776 KiB (worst case)
 
 | regime | total | Direct_gsum_[5000] | Direct_gsum_[8200] | Lookup_gsum_[5000] | Permutation_gsum_[10] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -311,7 +311,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 781 KiB (expected) / 1174 KiB (worst case)
+**Proof Size:** 779 KiB (expected) / 808 KiB (worst case)
 
 | regime | total | Direct_gsum_[5000] | Direct_gsum_[8200] | Lookup_gsum_[5000] | Permutation_gsum_[10] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -343,7 +343,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 781 KiB (expected) / 1174 KiB (worst case)
+**Proof Size:** 779 KiB (expected) / 808 KiB (worst case)
 
 | regime | total | Direct_gsum_[5000] | Direct_gsum_[8201] | Lookup_gsum_[5000] | Lookup_gsum_[88] | Permutation_gsum_[10] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -374,7 +374,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Permutation_gsum_[8000]
 
-**Proof Size:** 951 KiB (expected) / 1346 KiB (worst case)
+**Proof Size:** 949 KiB (expected) / 979 KiB (worst case)
 
 | regime | total | Lookup_gsum_[8002] | Lookup_gsum_[8003] | Lookup_gsum_[88] | Permutation_gsum_[10] | Permutation_gsum_[8000] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -404,7 +404,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Permutation_gsum_[8000]
 
-**Proof Size:** 881 KiB (expected) / 1276 KiB (worst case)
+**Proof Size:** 879 KiB (expected) / 909 KiB (worst case)
 
 | regime | total | Lookup_gsum_[8002] | Lookup_gsum_[88] | Permutation_gsum_[10] | Permutation_gsum_[8000] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -434,7 +434,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Permutation_gsum_[8000]
 
-**Proof Size:** 738 KiB (expected) / 1131 KiB (worst case)
+**Proof Size:** 736 KiB (expected) / 765 KiB (worst case)
 
 | regime | total | Lookup_gsum_[8002] | Lookup_gsum_[88] | Permutation_gsum_[10] | Permutation_gsum_[8000] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -466,7 +466,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[102]
 - Lookup (logup): Range Check_gsum_[106]
 
-**Proof Size:** 890 KiB (expected) / 1292 KiB (worst case)
+**Proof Size:** 889 KiB (expected) / 920 KiB (worst case)
 
 | regime | total | Direct_gsum_[1000] | Lookup_gsum_[5000] | Lookup_gsum_[7890] | Permutation_gsum_[10] | Range Check_gsum_[102] | Range Check_gsum_[106] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -493,7 +493,7 @@ How to read this report:
 - Number of constraints: 3
 - Lookup (logup): Lookup_gsum_[7890]
 
-**Proof Size:** 635 KiB (expected) / 1019 KiB (worst case)
+**Proof Size:** 633 KiB (expected) / 663 KiB (worst case)
 
 | regime | total | Lookup_gsum_[7890] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -524,7 +524,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[103]
 - Lookup (logup): Range Check_gsum_[104]
 
-**Proof Size:** 718 KiB (expected) / 1120 KiB (worst case)
+**Proof Size:** 716 KiB (expected) / 747 KiB (worst case)
 
 | regime | total | Direct_gsum_[11] | Permutation_gsum_[10] | Range Check_gsum_[102] | Range Check_gsum_[103] | Range Check_gsum_[104] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -553,7 +553,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Range Check_gsum_[102]
 
-**Proof Size:** 603 KiB (expected) / 997 KiB (worst case)
+**Proof Size:** 602 KiB (expected) / 631 KiB (worst case)
 
 | regime | total | Direct_gsum_[11] | Permutation_gsum_[10] | Range Check_gsum_[102] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -583,7 +583,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[102]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 646 KiB (expected) / 1040 KiB (worst case)
+**Proof Size:** 645 KiB (expected) / 674 KiB (worst case)
 
 | regime | total | Direct_gsum_[11] | Permutation_gsum_[10] | Range Check_gsum_[102] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -612,7 +612,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Range Check_gsum_[107]
 
-**Proof Size:** 821 KiB (expected) / 1217 KiB (worst case)
+**Proof Size:** 820 KiB (expected) / 849 KiB (worst case)
 
 | regime | total | Lookup_gsum_[133] | Permutation_gsum_[10] | Range Check_gsum_[107] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -643,7 +643,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[103]
 - Lookup (logup): Range Check_gsum_[107]
 
-**Proof Size:** 694 KiB (expected) / 1093 KiB (worst case)
+**Proof Size:** 692 KiB (expected) / 723 KiB (worst case)
 
 | regime | total | Direct_gsum_[10] | Lookup_gsum_[88] | Permutation_gsum_[10] | Range Check_gsum_[103] | Range Check_gsum_[107] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -673,7 +673,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 656 KiB (expected) / 1056 KiB (worst case)
+**Proof Size:** 654 KiB (expected) / 685 KiB (worst case)
 
 | regime | total | Direct_gsum_[10] | Lookup_gsum_[88] | Permutation_gsum_[10] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -704,7 +704,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[103]
 - Lookup (logup): Range Check_gsum_[107]
 
-**Proof Size:** 683 KiB (expected) / 1082 KiB (worst case)
+**Proof Size:** 681 KiB (expected) / 712 KiB (worst case)
 
 | regime | total | Direct_gsum_[10] | Lookup_gsum_[88] | Permutation_gsum_[10] | Range Check_gsum_[103] | Range Check_gsum_[107] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -733,7 +733,7 @@ How to read this report:
 - Lookup (logup): Lookup_gsum_[331]
 - Lookup (logup): Lookup_gsum_[5000]
 
-**Proof Size:** 848 KiB (expected) / 1244 KiB (worst case)
+**Proof Size:** 847 KiB (expected) / 876 KiB (worst case)
 
 | regime | total | Lookup_gsum_[330] | Lookup_gsum_[331] | Lookup_gsum_[5000] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -762,7 +762,7 @@ How to read this report:
 - Lookup (logup): Lookup_gsum_[125]
 - Lookup (logup): Lookup_gsum_[5000]
 
-**Proof Size:** 826 KiB (expected) / 1227 KiB (worst case)
+**Proof Size:** 824 KiB (expected) / 855 KiB (worst case)
 
 | regime | total | Direct_gsum_[5000] | Lookup_gsum_[125] | Lookup_gsum_[5000] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -791,7 +791,7 @@ How to read this report:
 - Lookup (logup): Lookup_gsum_[5000]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 656 KiB (expected) / 1056 KiB (worst case)
+**Proof Size:** 654 KiB (expected) / 685 KiB (worst case)
 
 | regime | total | Direct_gsum_[5000] | Lookup_gsum_[5000] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -821,7 +821,7 @@ How to read this report:
 - Lookup (logup): Lookup_gsum_[5000]
 - Lookup (logup): Range Check_gsum_[102]
 
-**Proof Size:** 777 KiB (expected) / 1179 KiB (worst case)
+**Proof Size:** 775 KiB (expected) / 806 KiB (worst case)
 
 | regime | total | Direct_gsum_[5000] | Lookup_gsum_[124] | Lookup_gsum_[5000] | Range Check_gsum_[102] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -850,7 +850,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 816 KiB (expected) / 1165 KiB (worst case)
+**Proof Size:** 815 KiB (expected) / 841 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | Permutation_gsum_[10] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -882,7 +882,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[103]
 - Lookup (logup): Range Check_gsum_[108]
 
-**Proof Size:** 2994 KiB (expected) / 3346 KiB (worst case)
+**Proof Size:** 2993 KiB (expected) / 3019 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | Lookup_gsum_[5002] | Permutation_gsum_[10] | Range Check_gsum_[103, 104] | Range Check_gsum_[103] | Range Check_gsum_[108] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -914,7 +914,7 @@ How to read this report:
 - Lookup (logup): Range Check_gsum_[103]
 - Lookup (logup): Range Check_gsum_[108]
 
-**Proof Size:** 3366 KiB (expected) / 3720 KiB (worst case)
+**Proof Size:** 3364 KiB (expected) / 3391 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | Lookup_gsum_[5002] | Permutation_gsum_[10] | Range Check_gsum_[103, 104] | Range Check_gsum_[103] | Range Check_gsum_[108] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -943,7 +943,7 @@ How to read this report:
 - Lookup (logup): Lookup_gsum_[5000]
 - Lookup (logup): Permutation_gsum_[10]
 
-**Proof Size:** 20975 KiB (expected) / 21244 KiB (worst case)
+**Proof Size:** 20974 KiB (expected) / 20993 KiB (worst case)
 
 | regime | total | Lookup_gsum_[126] | Lookup_gsum_[5000] | Permutation_gsum_[10] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -972,7 +972,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[10]
 - Lookup (logup): Range Check_gsum_[109]
 
-**Proof Size:** 7215 KiB (expected) / 7549 KiB (worst case)
+**Proof Size:** 7213 KiB (expected) / 7237 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | Permutation_gsum_[10] | Range Check_gsum_[109] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1000,7 +1000,7 @@ How to read this report:
 - Lookup (logup): Lookup_gsum_[5000]
 - Lookup (logup): Permutation_gsum_[10]
 
-**Proof Size:** 682 KiB (expected) / 832 KiB (worst case)
+**Proof Size:** 681 KiB (expected) / 693 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | Permutation_gsum_[10] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1030,7 +1030,7 @@ How to read this report:
 - Lookup (logup): Permutation_gsum_[127]
 - Lookup (logup): Range Check_gsum_[103]
 
-**Proof Size:** 3874 KiB (expected) / 4207 KiB (worst case)
+**Proof Size:** 3872 KiB (expected) / 3896 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | Permutation_gsum_[10] | Permutation_gsum_[127] | Range Check_gsum_[103] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1062,7 +1062,7 @@ How to read this report:
 - Lookup (logup): Lookup_gsum_[108, 109]
 - Lookup (logup): Lookup_gsum_[108]
 
-**Proof Size:** 1020 KiB (expected) / 1369 KiB (worst case)
+**Proof Size:** 1019 KiB (expected) / 1045 KiB (worst case)
 
 | regime | total | Lookup_gsum_[102] | Lookup_gsum_[103, 104] | Lookup_gsum_[104, 105, 106, 107, 108] | Lookup_gsum_[104] | Lookup_gsum_[108, 109] | Lookup_gsum_[108] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1094,7 +1094,7 @@ How to read this report:
 - Lookup (logup): Lookup_gsum_[330]
 - Lookup (logup): Lookup_gsum_[5002, 88, 77, 8003, 126]
 
-**Proof Size:** 875 KiB (expected) / 1270 KiB (worst case)
+**Proof Size:** 874 KiB (expected) / 903 KiB (worst case)
 
 | regime | total | Lookup_gsum_[124, 8001] | Lookup_gsum_[125, 124] | Lookup_gsum_[125] | Lookup_gsum_[126, 331, 8002, 133, 125] | Lookup_gsum_[330] | Lookup_gsum_[5002, 88, 77, 8003, 126] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1121,7 +1121,7 @@ How to read this report:
 - Number of constraints: 6
 - Lookup (logup): Lookup_gsum_[5000]
 
-**Proof Size:** 989 KiB (expected) / 1384 KiB (worst case)
+**Proof Size:** 987 KiB (expected) / 1017 KiB (worst case)
 
 | regime | total | Lookup_gsum_[5000] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1148,7 +1148,7 @@ How to read this report:
 - Number of constraints: 179
 - Lookup (logup): Connection_gprod_[1]
 
-**Proof Size:** 726 KiB (expected) / 871 KiB (worst case)
+**Proof Size:** 725 KiB (expected) / 737 KiB (worst case)
 
 | regime | total | Connection_gprod_[1] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1175,7 +1175,7 @@ How to read this report:
 - Number of constraints: 179
 - Lookup (logup): Connection_gprod_[1]
 
-**Proof Size:** 726 KiB (expected) / 871 KiB (worst case)
+**Proof Size:** 725 KiB (expected) / 737 KiB (worst case)
 
 | regime | total | Connection_gprod_[1] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1202,7 +1202,7 @@ How to read this report:
 - Number of constraints: 179
 - Lookup (logup): Connection_gprod_[1]
 
-**Proof Size:** 726 KiB (expected) / 871 KiB (worst case)
+**Proof Size:** 725 KiB (expected) / 737 KiB (worst case)
 
 | regime | total | Connection_gprod_[1] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1229,7 +1229,7 @@ How to read this report:
 - Number of constraints: 179
 - Lookup (logup): Connection_gprod_[1]
 
-**Proof Size:** 771 KiB (expected) / 940 KiB (worst case)
+**Proof Size:** 769 KiB (expected) / 784 KiB (worst case)
 
 | regime | total | Connection_gprod_[1] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | commit round 6 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1256,7 +1256,7 @@ How to read this report:
 - Number of constraints: 179
 - Lookup (logup): Connection_gprod_[1]
 
-**Proof Size:** 743 KiB (expected) / 892 KiB (worst case)
+**Proof Size:** 741 KiB (expected) / 755 KiB (worst case)
 
 | regime | total | Connection_gprod_[1] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1283,7 +1283,7 @@ How to read this report:
 - Number of constraints: 179
 - Lookup (logup): Connection_gprod_[1]
 
-**Proof Size:** 726 KiB (expected) / 871 KiB (worst case)
+**Proof Size:** 725 KiB (expected) / 737 KiB (worst case)
 
 | regime | total | Connection_gprod_[1] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1310,7 +1310,7 @@ How to read this report:
 - Number of constraints: 158
 - Lookup (logup): Connection_gprod_[1]
 
-**Proof Size:** 398 KiB (expected) / 487 KiB (worst case)
+**Proof Size:** 396 KiB (expected) / 405 KiB (worst case)
 
 | regime | total | Connection_gprod_[1] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | commit round 5 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1337,7 +1337,7 @@ How to read this report:
 - Number of constraints: 161
 - Lookup (logup): Connection_gprod_[1]
 
-**Proof Size:** 272 KiB (expected) / 311 KiB (worst case)
+**Proof Size:** 271 KiB (expected) / 275 KiB (worst case)
 
 | regime | total | Connection_gprod_[1] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | commit round 4 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1364,7 +1364,7 @@ How to read this report:
 - Number of constraints: 158
 - Lookup (logup): Connection_gprod_[1]
 
-**Proof Size:** 269 KiB (expected) / 313 KiB (worst case)
+**Proof Size:** 268 KiB (expected) / 274 KiB (worst case)
 
 | regime | total | Connection_gprod_[1] | ALI | DEEP | batching | commit round 1 | commit round 2 | commit round 3 | query phase |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
