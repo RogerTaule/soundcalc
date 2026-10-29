@@ -13,12 +13,14 @@ from soundcalc.proxgaps.proxgaps_regime import ProximityGapsRegime
 def get_FRI_proof_size_bits(
         hash_size_bits: int,
         field_size_bits: int,
+        base_field_bits: int,
         batch_size: int,
         num_queries: int,
         domain_size: int,
         folding_factors: list[int],
         rate: int,
-        expected: bool
+        expected: bool,
+        initial_tree_widths: Optional[list[int]] = None,
 ) -> int:
     """
     Compute the proof size or expected proof size of a (BCS-transformed) FRI interaction in bits.
@@ -40,9 +42,11 @@ def get_FRI_proof_size_bits(
     # each leaf i for that root contains symbols i for all initial functions.
     n = int(domain_size)
     num_leafs = n
-    tuple_size = batch_size
-    size_bits += hash_size_bits # root
-    size_bits += get_size_of_merkle_multi_proof_bits(num_leafs, num_queries, tuple_size, field_size_bits, hash_size_bits, expected) # queries
+    # With `initial_tree_widths`, there is one such tree per committed stage, of base field columns.
+    trees = [(w, base_field_bits) for w in initial_tree_widths] if initial_tree_widths else [(batch_size, field_size_bits)]
+    for tuple_size, element_bits in trees:
+        size_bits += hash_size_bits # root
+        size_bits += get_size_of_merkle_multi_proof_bits(num_leafs, num_queries, tuple_size, element_bits, hash_size_bits, expected) # queries
 
     # Now we have folded these batch_size initial functions into one
     # Next, we start with the folding rounds.
@@ -133,6 +137,20 @@ class FRIConfig:
     # (This is useful to pin fixed parameters in TOML configs.)
     gap_to_radius: Optional[float] = None
 
+    # Number of base field columns in each Merkle tree committed before FRI.
+    # A univariate STARK commits one tree per stage:
+    #
+    #   [fixed, stage 1, ..., stage n, quotient]
+    #
+    # e.g. [12, 40, 9, 6]. A column over an extension field of degree d counts as d,
+    # since each of its values is stored as d base field elements. Each query opens
+    # the same row in every tree, so the proof has one root and one Merkle path per
+    # tree. Only affects proof size.
+    # If unset, all batch_size functions are in one tree of extension field elements.
+    initial_tree_widths: Optional[list[int]] = None
+    # Out-of-domain evaluations sent in the proof (extension field elements)
+    num_evals: int = 0
+
 class FRI(PCS):
     """
     FRI Polynomial Commitment Scheme.
@@ -154,6 +172,8 @@ class FRI(PCS):
         self.grinding_commit_phase = config.grinding_commit_phase
         self.grinding_batching_phase = config.grinding_batching_phase
         self.gap_to_radius = config.gap_to_radius
+        self.initial_tree_widths = config.initial_tree_widths
+        self.num_evals = config.num_evals
 
         # Negative log of rate
         self.k = int(round(-log2(self.rho)))
@@ -249,15 +269,18 @@ class FRI(PCS):
         # XXX (BW): note that it is not clear that this is the
         # proof size for every zkEVM we can think of
         # XXX (BW): we should probably also add something for the OOD samples and plookup, lookup etc.
-        return get_FRI_proof_size_bits(
+        evals_size_bits = self.num_evals * self.field.extension_field_element_size_bits()
+        return evals_size_bits + get_FRI_proof_size_bits(
             hash_size_bits=self.hash_size_bits,
             field_size_bits=self.field.extension_field_element_size_bits(),
+            base_field_bits=self.field.base_field_element_size_bits(),
             batch_size=self.batch_size,
             num_queries=self.num_queries,
             domain_size=int(self.D),
             folding_factors=self.FRI_folding_factors,
             rate=self.rho,
-            expected=expected
+            expected=expected,
+            initial_tree_widths=self.initial_tree_widths,
         )
 
     def get_rate(self) -> float:
@@ -286,6 +309,8 @@ class FRI(PCS):
             "domain_size D = trace_length / rho": self.D,
             "batch_size": self.batch_size,
             "power_batching": self.power_batching,
+            "initial_tree_widths": self.initial_tree_widths,
+            "num_evals": self.num_evals,
             "num_queries": self.num_queries,
             "gap_to_radius": self.gap_to_radius,
             "FRI_folding_factors": self.FRI_folding_factors,
@@ -325,4 +350,8 @@ class FRI(PCS):
             f"- Batch size: {self.batch_size}",
             f"- Batching: {batching}",
         ])
+        if self.initial_tree_widths:
+            lines.append(f"- Initial commitment trees (base field columns): {self.initial_tree_widths}")
+        if self.num_evals > 0:
+            lines.append(f"- Out-of-domain evaluations sent: {self.num_evals}")
         return lines

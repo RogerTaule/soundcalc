@@ -119,3 +119,7 @@ calculated as\footnote{See \texttt{common/utils.py:get\_size\_of\_merkle\_multi\
     eMP(n,t, b,\bfield,\bhash) =   \underbrace{t\cdot b\cdot \bfield}_{\text{ size of all}}
     +\bhash\sum_{1\leq d\leq \lceil \log_{2} n\rceil}\lceil 2^d\left((1-2^{-d})^t-(1-2^{1-d})^t\right)\rceil
 \end{equation}
+
+If the initial functions are committed in several trees of base field columns, with $w_1, \ldots, w_s$ columns each (\verb|initial_tree_widths|), the initial round becomes $\sum_{j=1}^{s} \left(\bhash + eMP(n, t, w_j, \bprime, \bhash)\right)$.
+
+The $n_{\mathrm{evals}}$ out-of-domain evaluations sent before FRI (\verb|num_evals|) add $n_{\mathrm{evals}} \cdot \bfield$ bits to the proof size, also in STIR.\footnote{See \texttt{pcs/fri.py:\_get\_proof\_size\_bits()}.}

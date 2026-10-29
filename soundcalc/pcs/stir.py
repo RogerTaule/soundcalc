@@ -24,6 +24,7 @@ def get_STIR_proof_size_bits(
     num_queries: list[int],
     num_ood_samples: list[int],
     expected: bool,
+    initial_tree_widths: Optional[list[int]] = None,
 ) -> int:
     """
     Estimate the proof size of STIR in bits by counting prover messages
@@ -50,7 +51,9 @@ def get_STIR_proof_size_bits(
 
     # Prover sends the batched functions and the initial function f_0 (Merkle roots).
     # Note: batching does not add roots, we assume all batched functions live in one tree.
-    proof_size += 2 * hash_size_bits
+    # With `initial_tree_widths`, there is one root per tree of batched functions instead.
+    initial_trees = initial_tree_widths or [batch_size]
+    proof_size += (len(initial_trees) + 1) * hash_size_bits
 
     # Main loop, i = 1..M-1: prover sends f_i (Merkle root) and the OOD answers f_i(r_out).
     # OOD points are extension field elements, hence so are the answers.
@@ -63,9 +66,10 @@ def get_STIR_proof_size_bits(
 
     # Query phase: the verifier reads the batched (base field) functions at t_0 points.
     batched_domain_size = 2 ** (log_degrees[0] + log_inv_rates[0])
-    proof_size += get_size_of_merkle_multi_proof_bits(
-        batched_domain_size, num_queries[0], batch_size, base_field_bits, hash_size_bits, expected
-    )
+    for width in initial_trees:
+        proof_size += get_size_of_merkle_multi_proof_bits(
+            batched_domain_size, num_queries[0], width, base_field_bits, hash_size_bits, expected
+        )
 
     # Then, for every f_i (i = 0..M-1) the verifier reads t_i folding blocks.
     # As in the paper, an entire block of 2^{k_i} siblings is stored in one Merkle leaf.
@@ -144,6 +148,12 @@ class STIRConfig:
     # Optional override for the bound *gap*.
     gap_to_radius: Optional[float] = None
 
+    # Number of base field columns in each Merkle tree committed before STIR, as in FRIConfig.
+    # If unset, all batch_size functions are in one tree of base field elements.
+    initial_tree_widths: Optional[list[int]] = None
+    # Out-of-domain evaluations sent in the proof (extension field elements).
+    num_evals: int = 0
+
 
 class STIR(PCS):
     """
@@ -170,6 +180,8 @@ class STIR(PCS):
         self.grinding_bits_ood = config.grinding_bits_ood
         self.gap_to_radius = config.gap_to_radius
         self.log_degree = config.log_degree
+        self.initial_tree_widths = config.initial_tree_widths
+        self.num_evals = config.num_evals
 
         assert self.batch_size >= 1, "Batch size must be at least 1"
         assert config.log_inv_rate > 0, "Log inverse rate must be > 0 (rate < 1.0)"
@@ -364,7 +376,8 @@ class STIR(PCS):
         return round(math.log2(grinding_sum), 2)
 
     def _get_proof_size_bits(self, expected: bool) -> int:
-        return get_STIR_proof_size_bits(
+        evals_size_bits = self.num_evals * self.field.extension_field_element_size_bits()
+        return evals_size_bits + get_STIR_proof_size_bits(
             hash_size_bits=self.hash_size_bits,
             base_field_bits=self.field.base_field_element_size_bits(),
             ext_field_bits=self.field.extension_field_element_size_bits(),
@@ -375,6 +388,7 @@ class STIR(PCS):
             num_queries=self.num_queries,
             num_ood_samples=self.num_ood_samples,
             expected=expected,
+            initial_tree_widths=self.initial_tree_widths,
         )
 
     def get_rate(self) -> float:
@@ -394,6 +408,8 @@ class STIR(PCS):
         params = {
             "hash_size_bits": self.hash_size_bits,
             "batch_size": self.batch_size,
+            "initial_tree_widths": self.initial_tree_widths,
+            "num_evals": self.num_evals,
             "gap_to_radius": self.gap_to_radius,
             "power_batching": self.power_batching,
             "grinding_batching_phase": self.grinding_batching_phase,
@@ -425,7 +441,7 @@ class STIR(PCS):
 
     def get_report_parameter_lines(self) -> list[str]:
         batching = "Powers" if self.power_batching else "Affine"
-        return [
+        lines = [
             f"- Hash size (bits): {self.hash_size_bits}",
             f"- Field: {self.field.to_string()}",
             f"- Iterations (M): {self.num_iterations}",
@@ -438,3 +454,8 @@ class STIR(PCS):
             f"- OOD samples per iteration: {self.num_ood_samples}",
             f"- Total grinding overhead log2: {self.log_grinding_overhead}",
         ]
+        if self.initial_tree_widths:
+            lines.append(f"- Initial commitment trees (base field columns): {self.initial_tree_widths}")
+        if self.num_evals > 0:
+            lines.append(f"- Out-of-domain evaluations sent: {self.num_evals}")
+        return lines

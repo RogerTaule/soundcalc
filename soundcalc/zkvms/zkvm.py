@@ -104,6 +104,8 @@ class zkVM:
             grinding_query_phase=section.get("grinding_query_phase", 0),
             grinding_commit_phase=section.get("grinding_commit_phase", 0),
             grinding_batching_phase=section.get("grinding_batching_phase", 0),
+            initial_tree_widths=section.get("initial_tree_widths"),
+            num_evals=section.get("num_evals", 0),
         ))
         lookups = _parse_lookups_from_toml(section, field)
         return DeepAliCircuit(DeepAliConfig(
@@ -171,6 +173,8 @@ class zkVM:
             num_ood_samples=section["num_ood_samples"],
             grinding_bits_ood=section["grinding_bits_ood"],
             gap_to_radius=section.get("gap_to_radius"),
+            initial_tree_widths=section.get("initial_tree_widths"),
+            num_evals=section.get("num_evals", 0),
         ))
         lookups = _parse_lookups_from_toml(section, field)
         return DeepAliCircuit(DeepAliConfig(
