@@ -148,8 +148,6 @@ class FRIConfig:
     # tree. Only affects proof size.
     # If unset, all batch_size functions are in one tree of extension field elements.
     initial_tree_widths: Optional[list[int]] = None
-    # Out-of-domain evaluations sent in the proof (extension field elements)
-    num_evals: int = 0
 
 class FRI(PCS):
     """
@@ -173,7 +171,6 @@ class FRI(PCS):
         self.grinding_batching_phase = config.grinding_batching_phase
         self.gap_to_radius = config.gap_to_radius
         self.initial_tree_widths = config.initial_tree_widths
-        self.num_evals = config.num_evals
 
         # Negative log of rate
         self.k = int(round(-log2(self.rho)))
@@ -268,9 +265,7 @@ class FRI(PCS):
         """
         # XXX (BW): note that it is not clear that this is the
         # proof size for every zkEVM we can think of
-        # XXX (BW): we should probably also add something for the OOD samples and plookup, lookup etc.
-        evals_size_bits = self.num_evals * self.field.extension_field_element_size_bits()
-        return evals_size_bits + get_FRI_proof_size_bits(
+        return get_FRI_proof_size_bits(
             hash_size_bits=self.hash_size_bits,
             field_size_bits=self.field.extension_field_element_size_bits(),
             base_field_bits=self.field.base_field_element_size_bits(),
@@ -310,7 +305,6 @@ class FRI(PCS):
             "batch_size": self.batch_size,
             "power_batching": self.power_batching,
             "initial_tree_widths": self.initial_tree_widths,
-            "num_evals": self.num_evals,
             "num_queries": self.num_queries,
             "gap_to_radius": self.gap_to_radius,
             "FRI_folding_factors": self.FRI_folding_factors,
@@ -352,6 +346,4 @@ class FRI(PCS):
         ])
         if self.initial_tree_widths:
             lines.append(f"- Initial commitment trees (base field columns): {self.initial_tree_widths}")
-        if self.num_evals > 0:
-            lines.append(f"- Out-of-domain evaluations sent: {self.num_evals}")
         return lines

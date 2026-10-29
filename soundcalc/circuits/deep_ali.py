@@ -29,6 +29,8 @@ class DeepAliConfig:
     lookups: list[LogUp] | None = None
     # Proof of Work grinding during DEEP (expressed in bits of security)
     grinding_deep: int = 0
+    # Out-of-domain evaluations sent in the proof (extension field elements)
+    num_evals: int = 0
     # If set, restrict analysis to a single regime ("unique" or "list").
     # If None, both regimes are analyzed.
     explicit_regime: str | None = None
@@ -52,11 +54,21 @@ class DeepAliCircuit(Circuit):
         self.max_combo = config.max_combo
         self._lookups = config.lookups or []
         self.grinding_deep = config.grinding_deep
+        self.num_evals = config.num_evals
         self.explicit_regime = config.explicit_regime
 
     def get_lookups(self) -> list[LogUp]:
         """Returns the list of lookups for this circuit."""
         return self._lookups
+
+    def get_proof_size_bits(self) -> int:
+        return self._get_evals_size_bits() + self.pcs.get_proof_size_bits()
+
+    def get_expected_proof_size_bits(self) -> int:
+        return self._get_evals_size_bits() + self.pcs.get_expected_proof_size_bits()
+
+    def _get_evals_size_bits(self) -> int:
+        return self.num_evals * self.field.extension_field_element_size_bits()
 
     def get_security_levels(self) -> dict[str, dict[str, int]]:
         if self.explicit_regime == "unique":
@@ -103,6 +115,7 @@ class DeepAliCircuit(Circuit):
                     f"  num_constraints                    : {self.num_constraints}",
                     f"  AIR_max_degree                     : {self.AIR_max_degree}",
                     f"  max_combo                          : {self.max_combo}",
+                    f"  num_evals                          : {self.num_evals}",
                 ]
 
                 # Add lookup params
@@ -128,6 +141,8 @@ class DeepAliCircuit(Circuit):
         lines.extend(self.pcs.get_report_parameter_lines())
         if self.grinding_deep > 0:
             lines.append(f"- Grinding DEEP (bits): {self.grinding_deep}")
+        if self.num_evals > 0:
+            lines.append(f"- Out-of-domain evaluations sent: {self.num_evals}")
         lines.append(f"- Number of constraints: {self.num_constraints}")
         for lookup in self._lookups:
             lines.append(f"- Lookup (logup): {lookup.get_name()}")

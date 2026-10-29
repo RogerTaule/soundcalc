@@ -151,8 +151,6 @@ class STIRConfig:
     # Number of base field columns in each Merkle tree committed before STIR, as in FRIConfig.
     # If unset, all batch_size functions are in one tree of base field elements.
     initial_tree_widths: Optional[list[int]] = None
-    # Out-of-domain evaluations sent in the proof (extension field elements).
-    num_evals: int = 0
 
 
 class STIR(PCS):
@@ -181,7 +179,6 @@ class STIR(PCS):
         self.gap_to_radius = config.gap_to_radius
         self.log_degree = config.log_degree
         self.initial_tree_widths = config.initial_tree_widths
-        self.num_evals = config.num_evals
 
         assert self.batch_size >= 1, "Batch size must be at least 1"
         assert config.log_inv_rate > 0, "Log inverse rate must be > 0 (rate < 1.0)"
@@ -376,8 +373,7 @@ class STIR(PCS):
         return round(math.log2(grinding_sum), 2)
 
     def _get_proof_size_bits(self, expected: bool) -> int:
-        evals_size_bits = self.num_evals * self.field.extension_field_element_size_bits()
-        return evals_size_bits + get_STIR_proof_size_bits(
+        return get_STIR_proof_size_bits(
             hash_size_bits=self.hash_size_bits,
             base_field_bits=self.field.base_field_element_size_bits(),
             ext_field_bits=self.field.extension_field_element_size_bits(),
@@ -409,7 +405,6 @@ class STIR(PCS):
             "hash_size_bits": self.hash_size_bits,
             "batch_size": self.batch_size,
             "initial_tree_widths": self.initial_tree_widths,
-            "num_evals": self.num_evals,
             "gap_to_radius": self.gap_to_radius,
             "power_batching": self.power_batching,
             "grinding_batching_phase": self.grinding_batching_phase,
@@ -456,6 +451,4 @@ class STIR(PCS):
         ]
         if self.initial_tree_widths:
             lines.append(f"- Initial commitment trees (base field columns): {self.initial_tree_widths}")
-        if self.num_evals > 0:
-            lines.append(f"- Out-of-domain evaluations sent: {self.num_evals}")
         return lines

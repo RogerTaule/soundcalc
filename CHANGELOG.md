@@ -4,7 +4,7 @@ toml format changes, newest-first.
 
 ### 2026-10-23 — Initial commitment
 - added optional `initial_tree_widths` to FRI and STIR `[[circuits]]` sections: the number of base field columns in each tree committed before the PCS; if unset, all `batch_size` functions are assumed to live in one tree; only affects the proof size
-- added optional `num_evals` (default `0`) to FRI and STIR `[[circuits]]` sections: the number of out-of-domain evaluations sent in the proof; only affects the proof size
+- added optional `num_evals` (default `0`) to DEEP-ALI `[[circuits]]` sections (FRI, STIR and WHIR): the number of out-of-domain evaluations sent in the proof; only affects the proof size
 
 ### 2026-07-23 — SWIRL
 - unified SWIRL circuit loading on the OpenVM-style keys; in SWIRL `[[circuits]]` sections: renamed `log_inv_rate` → `log_blowup`, `num_queries` → `whir_num_queries`, `trace_columns` → `num_trace_columns`, `grinding_batching_phase` → `whir_mu_pow_bits`, `swirl_folding_pow_bits` → `whir_folding_pow_bits`

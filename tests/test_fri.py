@@ -1,8 +1,5 @@
 # tests/test_fri.py
-import pytest
-
 from soundcalc.pcs.fri import get_FRI_proof_size_bits
-from soundcalc.zkvms import dummy_stir, pico
 
 def test_get_FRI_proof_size_bits():
     hash_size_bits = 1
@@ -48,12 +45,3 @@ def test_get_FRI_proof_size_bits_initial_tree_widths():
     siblings = 6 + 10 + 10 + 10
     old, new = 1 + 10 * 6 + siblings, 1 + 10 * 2 + siblings + 1 + 10 * 1 + siblings
     assert result == get_FRI_proof_size_bits(*args) - old + new
-
-
-@pytest.mark.parametrize("zkvm", [pico, dummy_stir])
-def test_num_evals_adds_to_proof_size(zkvm):
-    pcs = zkvm.load().get_circuits()[0].pcs
-    sizes = pcs.get_proof_size_bits(), pcs.get_expected_proof_size_bits()
-    pcs.num_evals = 5
-    added = 5 * pcs.field.extension_field_element_size_bits()
-    assert (pcs.get_proof_size_bits(), pcs.get_expected_proof_size_bits()) == (sizes[0] + added, sizes[1] + added)

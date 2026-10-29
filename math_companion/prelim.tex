@@ -110,3 +110,6 @@ Since our DEEP-ALI bound uses multi-point quotients (a.k.a.\ combo batching), we
 where $\rho$ is the FRI rate and $\theta$ is the proximity parameter determined by the chosen regime.
 This condition is checked in code via an assertion.\footnote{See \texttt{zkvms/circuit.py:\_get\_DEEP\_ALI\_errors()}.}
 
+\paragraph{Proof size.}
+The $n_{\mathrm{evals}}$ out-of-domain evaluations sent by the DEEP-ALI prover (\verb|num_evals|) add $n_{\mathrm{evals}} \cdot \bfield$ bits to the proof size of the PCS.\footnote{See \texttt{circuits/deep\_ali.py:get\_proof\_size\_bits()}.}
+
